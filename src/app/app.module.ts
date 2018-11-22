@@ -7,6 +7,7 @@ import { AppRouterModule } from './app-routes.module';
 import { ContactListModule } from './components/contact-list/contact-list.module';
 import { RouterModule } from '@angular/router';
 import { NewContactModule } from './components/new-contact/new-contact.module';
+import { NavPagesModule } from './nav-pages/nav-pages.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { NewContactModule } from './components/new-contact/new-contact.module';
     AppRouterModule,
     BrowserModule,
     ContactListModule,
+    NavPagesModule,
     NewContactModule,
     RouterModule,
   ],
