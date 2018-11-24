@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http'
 
 
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { NavPagesModule } from './nav-pages/nav-pages.module';
     AppRouterModule,
     BrowserModule,
     ContactListModule,
+    HttpClientModule,
     NavPagesModule,
     NewContactModule,
     RouterModule,
