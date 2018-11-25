@@ -18,14 +18,15 @@ export class NewContactComponent implements OnInit {
   ngOnInit() {
     this.contactForm = this.fb.group({
       firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      phone: [null, [Validators.required]]
+      lastName: [''],
+      email: [''],
+      phone: ['', [Validators.required]]
     });
 
-    this.contactManagerService.getAllContacts().subscribe(data =>
-      console.log(data));
   }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.contactForm.controls; }
 
   onSubmit() {
     this.contactManagerService.saveContact(this.contactForm.value)
@@ -33,7 +34,6 @@ export class NewContactComponent implements OnInit {
         console.log('Posted result', data);
       })
     console.log(this.contactForm);
-
   }
 
 }
