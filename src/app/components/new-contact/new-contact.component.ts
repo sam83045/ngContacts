@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { ContactManagerService } from '../../services/contact-manager.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class NewContactComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: [''],
       email: [''],
-      phone: ['', [Validators.required]]
+      phone: [null, [Validators.required, CustomValidator.numeric]]
     });
 
   }
@@ -31,9 +31,23 @@ export class NewContactComponent implements OnInit {
   onSubmit() {
     this.contactManagerService.saveContact(this.contactForm.value)
       .subscribe((data) => {
-        console.log('Posted result', data);
+        this.contactForm.reset();
       })
     console.log(this.contactForm);
   }
 
+}
+
+
+export class CustomValidator {
+  // Number only validation
+  static numeric(control: AbstractControl) {
+    let val = control.value;
+
+    if (val === null || val === '') return null;
+
+    if (!val.toString().match(/^[0-9]+(\.?[0-9]+)?$/)) return { 'invalidNumber': true };
+
+    return null;
+  }
 }
