@@ -12,26 +12,31 @@ Future RoadMap :
 2. Confirmation Dialog on Deletion
 3. Import/Export contacts
 4. Contact Image
-5. 
+5. Test cases
 
 
 
-## Installation
+## Installation on local machine
+This application has two parts backend (mockJSON a dummy db server) and frontend (Angular application). The setup for them is as follows.
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+### 1. Setup Backend [mockJSON]
+This application uses mock JSON as a backend so will require running instance of mockJSON to work application smoothly. [MockJSON](https://github.com/sam83045/mockJSON.git). Clone the repository and after doing `npm install` in root folder use command `npm run json:server` to start the mockJSON application. 
 
-```bash
-pip install foobar
+``` bash
+ git clone https://github.com/sam83045/mockJSON.git
+ cd mockJSON
+ npm install
+ npm run json:server
 ```
 
-## Usage
+### 2. Angular Setup
+This application can be run as any normal Angular application which run on `port 4200`. Follow the following steps to run the front-end.
 
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+``` bash
+ git clone https://github.com/sam83045/ngContacts.git
+ cd ngContacts
+ npm install
+ npm start
 ```
 
 ## Contributing
