@@ -1,12 +1,15 @@
 <div class="container">
 
   <div class="row">
+    <div class="col-md-3 content-margin" placeholder="Search Contact">
+      <input type="text" class="form-control" [(ngModel)]="searchContact">
+    </div>
     <div class="col-md-12">
       <div class="row">
         <div class="col-md-12 content-margin">
           <h3 class="text-center content-margin" *ngIf="!contacts?.length">No Contacts found</h3>
         </div>
-        <div class="col-md-4 content-margin-bottom" *ngFor="let contact of contacts">
+        <div class="col-md-4 content-margin-bottom" *ngFor="let contact of contacts | search: searchContact">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">{{contact.firstName}} {{contact.lastName}}</h5>
@@ -15,8 +18,8 @@
                   <i class="fa fa-envelope"></i> {{contact.email}}</a>
               </p>
               <p *ngIf="!contact.email">&nbsp;</p>
-              <i class="fa fa-trash float-right text-danger content-padding" title="Delete Contact" (click)="onDelete(contact.id)"></i>&nbsp;
-              <i class="fa fa-pencil float-right text-primary content-padding" title="Edit Contact" [routerLink]="['/new',contact.id]"></i>&nbsp;
+              <i class="fa fa-trash float-right text-danger content-padding cursor-pointer" title="Delete Contact" (click)="onDelete(contact.id)"></i>&nbsp;
+              <i class="fa fa-pencil float-right text-success content-padding cursor-pointer" title="Edit Contact" [routerLink]="['/new',contact.id]"></i>&nbsp;
             </div>
           </div>
         </div>

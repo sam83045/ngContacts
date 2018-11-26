@@ -25,8 +25,8 @@ export class NewContactComponent implements OnInit {
       id: [''],
       firstName: ['', [Validators.required]],
       lastName: [''],
-      email: [''],
-      phone: [null, [Validators.required, CustomValidator.numeric]]
+      email: ['',[Validators.email]],
+      phone: [null, [Validators.required, Validators.minLength(7) ,CustomValidator.numeric]]
     });
 
     this.activatedRoute.params.subscribe((params) => {
@@ -49,7 +49,7 @@ export class NewContactComponent implements OnInit {
     } else {
       conctactObservable = this.contactManagerService.saveContact(this.contactForm.value);
     }
-    conctactObservable.subscribe((data) => {
+    conctactObservable.subscribe(() => {
       this.contactForm.reset();
     });
   }
