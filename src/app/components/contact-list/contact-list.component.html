@@ -14,12 +14,12 @@
               <p *ngIf="contact.email" class="card-text"><a href="mailto:{{contact.email}}">
                   <i class="fa fa-envelope"></i> {{contact.email}}</a>
               </p>
-
+              <p *ngIf="!contact.email">&nbsp;</p>
+              <i class="fa fa-trash float-right text-danger content-padding" title="Delete Contact" (click)="onDelete(contact.id)"></i>&nbsp;
+              <i class="fa fa-pencil float-right text-primary content-padding" title="Edit Contact" [routerLink]="['/new',contact.id]"></i>&nbsp;
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>

@@ -10,13 +10,45 @@ export class ContactManagerService {
 
     constructor(
         private http: HttpClient
-    ) {
+    ) { }
+
+    /**
+     * Get all the contacts
+     */
+    getAllContacts(): Observable<Contact[]> {
+        return this.http.get<Contact[]>('/api/contacts');
     }
+
+    /**
+     * Get single contact by id
+     * @param contactId Contact ID of which contact data needs to be fetched
+     */
+    getContactById(contactId: string): Observable<Contact> {
+        return this.http.get<Contact>(`/api/contacts/${contactId}`);
+    }
+
+    /**
+     * Save contact into db
+     * @param contact Contact Data
+     */
     saveContact(contact: Contact): Observable<Contact> {
         return this.http.post<Contact>(`/api/contacts`, contact);
     }
 
-    getAllContacts(): Observable<any> {
-        return this.http.get('/api/contacts');
+    /**
+     * Updates the contact data
+     * @param contact Contact tobe updated
+     */
+    updateContact(contact: Contact): Observable<Contact> {
+        return this.http.put<Contact>(`/api/contacts/${contact.id}`, contact);
     }
+
+    /**
+     * Deletes the contact by given ID
+     * @param contactId ContactID to be deleted
+     */
+    delete(contactId: string): Observable<Contact> {
+        return this.http.delete<Contact>(`/api/contacts/${contactId}`);
+    }
+
 }

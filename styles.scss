@@ -1,9 +1,13 @@
 @import './node_modules/font-awesome/css/font-awesome.min.css';
 @import './node_modules/bootstrap/dist/css/bootstrap.css';
+@import './node_modules/angular2-toaster/toaster.min.css';
 .content-margin-bottom {
     margin-bottom: 10px;
 }
 
 .content-margin {
     margin: 10px;
+}
+.content-padding {
+    padding: 5px;
 }

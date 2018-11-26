@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ContactManagerService } from '../../services/contact-manager.service';
+import { Contact } from '../../model/contact';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new-contact',
@@ -9,31 +12,46 @@ import { ContactManagerService } from '../../services/contact-manager.service';
   providers: [ContactManagerService]
 })
 export class NewContactComponent implements OnInit {
+  public contactId: string;
   contactForm: FormGroup;
   constructor(
     private contactManagerService: ContactManagerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.contactForm = this.fb.group({
+      id: [''],
       firstName: ['', [Validators.required]],
       lastName: [''],
       email: [''],
       phone: [null, [Validators.required, CustomValidator.numeric]]
     });
 
+    this.activatedRoute.params.subscribe((params) => {
+      this.contactId = params['contactId'];
+      if (this.contactId) {
+        this.contactManagerService.getContactById(this.contactId).subscribe((contact: Contact) => {
+          this.contactForm.setValue(contact);
+        });
+      }
+    });
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.contactForm.controls; }
 
   onSubmit() {
-    this.contactManagerService.saveContact(this.contactForm.value)
-      .subscribe((data) => {
-        this.contactForm.reset();
-      })
-    console.log(this.contactForm);
+    let conctactObservable: Observable<Contact>;
+    if (this.contactId) {
+      conctactObservable = this.contactManagerService.updateContact(this.contactForm.value);
+    } else {
+      conctactObservable = this.contactManagerService.saveContact(this.contactForm.value);
+    }
+    conctactObservable.subscribe((data) => {
+      this.contactForm.reset();
+    });
   }
 
 }

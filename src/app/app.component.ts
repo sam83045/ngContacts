@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToasterConfig } from 'angular2-toaster';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  public toasterConfig: ToasterConfig = new ToasterConfig({
+    showCloseButton: true,
+    timeout:5000,
+    tapToDismiss: false
+  })
 }

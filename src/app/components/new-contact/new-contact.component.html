@@ -20,7 +20,7 @@
           <label>Phone</label>
           <input type="text" class="form-control" [ngClass]="{'is-invalid':f.phone.invalid && f.phone.touched}" formControlName="phone">
         </div>
-        <button class="btn btn-primary" (click)="onSubmit()" [disabled]="contactForm.invalid">Submit</button>
+        <button class="btn btn-primary" (click)="onSubmit()" [disabled]="contactForm.invalid">{{contactId?'Update':'Save'}} Contact</button>
       </form>
     </div>
   </div>
