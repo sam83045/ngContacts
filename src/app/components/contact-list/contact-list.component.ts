@@ -19,19 +19,19 @@ export class ContactListComponent implements OnInit {
   ngOnInit() {
     this.refreshList();
   }
-  
+
   refreshList() {
     this.contactManagerService.getAllContacts().subscribe((contacts: Contact[]) => {
       this.contacts = contacts;
     });
   }
-  
+
   /**
    * Deletes the contact
    */
   onDelete(contactId: string) {
     this.contactManagerService.delete(contactId).subscribe((data) => {
-      this.toasterService.pop('success',null,"Contact delete successfully!");
+      this.toasterService.pop('success', null, "Contact deleted successfully!");
       this.refreshList();
     });
   }

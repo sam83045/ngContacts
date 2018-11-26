@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ContactManagerService } from '../../services/contact-manager.service';
 import { Contact } from '../../model/contact';
 import { Observable } from 'rxjs';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-new-contact',
@@ -15,9 +16,10 @@ export class NewContactComponent implements OnInit {
   public contactId: string;
   contactForm: FormGroup;
   constructor(
+    private activatedRoute: ActivatedRoute,
     private contactManagerService: ContactManagerService,
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private toasterService: ToasterService,
   ) { }
 
   ngOnInit() {
@@ -25,8 +27,8 @@ export class NewContactComponent implements OnInit {
       id: [''],
       firstName: ['', [Validators.required]],
       lastName: [''],
-      email: ['',[Validators.email]],
-      phone: [null, [Validators.required, Validators.minLength(7) ,CustomValidator.numeric]]
+      email: ['', [Validators.email]],
+      phone: [null, [Validators.required, Validators.minLength(7), CustomValidator.numeric]]
     });
 
     this.activatedRoute.params.subscribe((params) => {
@@ -50,6 +52,11 @@ export class NewContactComponent implements OnInit {
       conctactObservable = this.contactManagerService.saveContact(this.contactForm.value);
     }
     conctactObservable.subscribe(() => {
+      if (this.contactId) {
+        this.toasterService.pop('success', null, 'Contact updated successfully!!');
+      } else {
+        this.toasterService.pop('success', null, 'Contact added successfully!!');
+      }
       this.contactForm.reset();
     });
   }
