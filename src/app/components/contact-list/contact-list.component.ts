@@ -11,6 +11,7 @@ import { ToasterService } from 'angular2-toaster';
 })
 export class ContactListComponent implements OnInit {
   public contacts: Contact[];
+  public searchContact: string;
   constructor(
     private contactManagerService: ContactManagerService,
     private toasterService: ToasterService
